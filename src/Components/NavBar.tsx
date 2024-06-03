@@ -2,7 +2,20 @@ import { Link, useLocation } from "react-router-dom"
 import React from "react"
 import Logo from "../assets/ecommerce-logo.png"
 
-const PATHS = ["Home", "Productos", "Carrito"]
+const PATHS = [
+    {
+        path: "/",
+        label: "Home",
+    },
+    {
+        path: "/productos",
+        label: "Productos",
+    },
+    {
+        path: "/carrito",
+        label: "Carrito",
+    },
+]
 
 const NavBar = () => {
     const location = useLocation()
@@ -12,18 +25,18 @@ const NavBar = () => {
         setSelectedLink(path)
     }
 
-    const NavButton = (path: string) => {
+    const NavButton = (path: string, label: string) => {
         return (
             <li>
                 <Link
-                    to="/"
-                    onClick={() => handleLinkClick(path.toLowerCase())}
+                    to={path}
+                    onClick={() => handleLinkClick(path)}
                     className={`block py-2 px-3 ${
-                        selectedLink === path.toLocaleLowerCase()
+                        selectedLink === path
                             ? "text-white bg-blue-700"
                             : "text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     } rounded md:p-1`}>
-                    {path}
+                    {label}
                 </Link>
             </li>
         )
@@ -48,7 +61,7 @@ const NavBar = () => {
                 </button>
                 <div className="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                        {PATHS.map((path) => NavButton(path))}
+                        {PATHS.map(({ path, label }) => NavButton(path, label))}
                     </ul>
                 </div>
             </div>
