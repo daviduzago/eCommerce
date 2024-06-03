@@ -2,12 +2,31 @@ import { Link, useLocation } from "react-router-dom"
 import React from "react"
 import Logo from "../assets/ecommerce-logo.png"
 
+const PATHS = ["Home", "Productos", "Carrito"]
+
 const NavBar = () => {
     const location = useLocation()
     const [selectedLink, setSelectedLink] = React.useState(location.pathname)
 
     const handleLinkClick = (path: string) => {
         setSelectedLink(path)
+    }
+
+    const NavButton = (path: string) => {
+        return (
+            <li>
+                <Link
+                    to="/"
+                    onClick={() => handleLinkClick(path.toLowerCase())}
+                    className={`block py-2 px-3 ${
+                        selectedLink === path.toLocaleLowerCase()
+                            ? "text-white bg-blue-700"
+                            : "text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    } rounded md:p-1`}>
+                    {path}
+                </Link>
+            </li>
+        )
     }
 
     return (
@@ -29,42 +48,7 @@ const NavBar = () => {
                 </button>
                 <div className="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                        <li>
-                            <Link
-                                to="/"
-                                onClick={() => handleLinkClick("/")}
-                                className={`block py-2 px-3 ${
-                                    selectedLink === "/"
-                                        ? "text-white bg-blue-700"
-                                        : "text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                                } rounded md:p-1`}>
-                                Home
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/sobre-nosotros"
-                                onClick={() => handleLinkClick("/sobre-nosotros")}
-                                className={`block py-2 px-3 ${
-                                    selectedLink === "/sobre-nosotros"
-                                        ? "text-white bg-blue-700"
-                                        : "text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                                } rounded md:p-1`}>
-                                Sobre Nosotros
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/carrito"
-                                onClick={() => handleLinkClick("/carrito")}
-                                className={`block py-2 px-3 ${
-                                    selectedLink === "/carrito"
-                                        ? "text-white bg-blue-700"
-                                        : "text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                                } rounded md:p-1`}>
-                                Carrito
-                            </Link>
-                        </li>
+                        {PATHS.map((path) => NavButton(path))}
                     </ul>
                 </div>
             </div>
