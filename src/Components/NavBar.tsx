@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom"
 import React from "react"
+import Logo from "../assets/ecommerce-logo.png"
 
 const NavBar = () => {
     const location = useLocation()
@@ -13,8 +14,8 @@ const NavBar = () => {
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/" className="flex flex-row">
-                    <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-2" alt="eCommerce Logo" />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">YisusCommerce</span>
+                    <img src={Logo} className="h-8 mr-2" alt="eCommerce Logo" />
+                    <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">eCommerce</span>
                 </Link>
                 <button
                     data-collapse-toggle="navbar-default"
