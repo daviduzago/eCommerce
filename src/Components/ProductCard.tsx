@@ -1,9 +1,21 @@
 import React from "react"
 import { Product } from "../types/Product"
+import { useAppDispatch, useAppSelector } from "../hooks/redux"
+import { agregarProducto, removerProducto } from "../redux/carritoSlice"
 
 const ProductCard: React.FC<Product> = ({ id, image, name, price, rating = 3 }) => {
     const stars = Array.from({ length: 5 }, (_, index) => index < rating)
 
+    const dispatch = useAppDispatch()
+    const { carrito } = useAppSelector((state) => state.carrito)
+    const onAddToCart = () => {
+        const productToDispatch: Product = { id, image, name, price, rating }
+        if (carrito.find((producto) => producto.id === id)) {
+            dispatch(removerProducto(productToDispatch))
+        } else {
+            dispatch(agregarProducto(productToDispatch))
+        }
+    }
     const Star: React.FC<{ filled: boolean }> = ({ filled }) => (
         <svg
             className={`w-4 h-4 ${filled ? "text-yellow-300" : undefined}`}
@@ -37,8 +49,9 @@ const ProductCard: React.FC<Product> = ({ id, image, name, price, rating = 3 }) 
                     <span className="text-2xl font-bold text-gray-900 dark:text-white">{`$${price}` ?? "$100"}</span>
                     <a
                         href="#"
+                        onClick={onAddToCart}
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Agregar
+                        {carrito.find((producto) => producto.id === id) ? "Quitar" : "Agregar"}
                     </a>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom"
 import React from "react"
 import Logo from "../assets/ecommerce-logo.png"
+import Cart from "../assets/cart.png"
 import { useAppSelector } from "../hooks/redux"
 
 const PATHS = [
@@ -66,7 +67,10 @@ const NavBar = () => {
                         {PATHS.map(({ path, label }) => NavButton(path, label))}
                     </ul>
                 </div>
-                <div className="text-white">{carrito.length}</div>
+                <div className="flex flex-row justify-center items-center">
+                    <img src={Cart} className="h-8 mr-2" alt="Cart" />
+                    <div className="text-white text-xl font-bold">{carrito.length}</div>
+                </div>
             </div>
         </nav>
     )
