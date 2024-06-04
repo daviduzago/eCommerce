@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom"
 import React from "react"
 import Logo from "../assets/ecommerce-logo.png"
+import { useAppSelector } from "../hooks/redux"
 
 const PATHS = [
     {
@@ -19,6 +20,7 @@ const PATHS = [
 
 const NavBar = () => {
     const location = useLocation()
+    const { carrito } = useAppSelector((state) => state.carrito)
     const [selectedLink, setSelectedLink] = React.useState(location.pathname)
 
     const handleLinkClick = (path: string) => {
@@ -64,6 +66,7 @@ const NavBar = () => {
                         {PATHS.map(({ path, label }) => NavButton(path, label))}
                     </ul>
                 </div>
+                <div className="text-white">{carrito.length}</div>
             </div>
         </nav>
     )
